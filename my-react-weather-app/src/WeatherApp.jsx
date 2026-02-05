@@ -9,6 +9,36 @@ function WeatherApp() {
     const [weather, setWeather] = useState("");
     const [error, setError] = useState("");
 
+    // this function will handle what happens after we press the submit button
+    async function handleSubmit() {
+
+    }
+
+    // this function will handle getting the city inputted and return the data
+    async function getWeatherData() {
+
+    }
+
+    // this function will gather specific data and display it
+    function displayWeatherInfo() {
+
+    }
+
+    // this function will get the specific emoji for the weather id and return it
+    function getWeatherEmoji() {
+
+    }
+
+    // this function will determine the direction the wind is blowing based on degree
+    function getWindDirection() {
+
+    }
+
+    // this function will display any potential error messages
+    function displayError() {
+        
+    }
+
     return(
         <div className="weather-container">
             <form className="weather-form">
