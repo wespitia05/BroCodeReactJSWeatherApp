@@ -4,6 +4,11 @@ import React, {useState} from "react";
 const API_KEY = "0b27dee62b5909ebbbf9788a2e85e2b2";
 
 function WeatherApp() {
+    // our constants with the setter functions as well, initial state is an empty string
+    const [city, setCity] = useState("");
+    const [weather, setWeather] = useState("");
+    const [error, setError] = useState("");
+
     return(
         <div className="weather-container">
             <form className="weather-form">
