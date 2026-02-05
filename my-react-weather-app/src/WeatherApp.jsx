@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, useRef} from "react";
 
 // our open weather api key
 const API_KEY = "0b27dee62b5909ebbbf9788a2e85e2b2";
@@ -6,12 +6,36 @@ const API_KEY = "0b27dee62b5909ebbbf9788a2e85e2b2";
 function WeatherApp() {
     // our constants with the setter functions as well, initial state is an empty string
     const [city, setCity] = useState("");
-    const [weather, setWeather] = useState("");
+    const [weather, setWeather] = useState(null);
     const [error, setError] = useState("");
+    const cityInputRef = useRef(null);
 
     // this function will handle what happens after we press the submit button
-    async function handleSubmit() {
+    async function handleSubmit(e) {
+        // prevents form to refresh after pressing submit button
+        e.preventDefault();
 
+        // check if nothing is inputted, or if a whitespace input is present
+        if (!city.trim()) {
+            displayError("Please Enter a City");
+            console.log("Please Enter a City");
+            return;
+        }
+
+        setError(""); // clear any old errors
+
+        // if something is inputted, try to get the data based on the city inputted
+        try {
+            // create constant data to wait for the getWeatherData to return info
+            const data = await getWeatherData(city.trim());
+            // if we get data back, call the displayWeatherInfo function to display it
+            displayWeatherInfo(data);
+        }
+        // catch any errors and display them
+        catch (err) {
+            displayError("Could Not Fetch Weather");
+            console.error("Could Not Fetch Weather");
+        }
     }
 
     // this function will handle getting the city inputted and return the data
@@ -35,14 +59,22 @@ function WeatherApp() {
     }
 
     // this function will display any potential error messages
-    function displayError() {
-        
+    function displayError(message) {
+        setWeather(null); // hides any old weather that might be present
+        setError(message); // shows error in html
     }
 
     return(
         <div className="weather-container">
-            <form className="weather-form">
-                <input type="text" className="cityInput" placeholder="Enter City"></input>
+            <form className="weather-form" onSubmit={handleSubmit}>
+                <input 
+                    type="text" 
+                    className="cityInput" 
+                    placeholder="Enter City" 
+                    ref={cityInputRef} 
+                    value={city} 
+                    onChange={(e) => setCity(e.target.value)}>
+                </input>
                 <button type="submit">Get Weather</button>
             </form>
             <div className="weather-card">
@@ -54,7 +86,7 @@ function WeatherApp() {
                 <p className="humidityDisplay">Humidity: 75%</p>
                 <p className="descDisplay">Clear Skies</p>
                 <p className="weatherEmoji">☀️</p>
-                <p className="errorDisplay">Please Enter A City</p>
+                {error && <p className="errorDisplay">{error}</p>}
             </div>
         </div>
     );
