@@ -12,7 +12,10 @@ function WeatherApp() {
             </form>
             <div className="weather-card">
                 <h1 className="cityDisplay">Miami</h1>
+                <p className="locDisplay">25.7743, -80.1937</p>
                 <p className="tempDisplay">90°</p>
+                <p className="realFeelDisplay">Real Feel: 92°</p>
+                <p className="windSpeedDisplay">Wind Speed: ↘ 3.09m/s</p>
                 <p className="humidityDisplay">Humidity: 75%</p>
                 <p className="descDisplay">Clear Skies</p>
                 <p className="weatherEmoji">☀️</p>
