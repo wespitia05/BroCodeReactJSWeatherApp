@@ -30,6 +30,7 @@ function WeatherApp() {
             const data = await getWeatherData(city.trim());
             // if we get data back, call the displayWeatherInfo function to display it
             displayWeatherInfo(data);
+            console.log(data);
         }
         // catch any errors and display them
         catch (err) {
@@ -39,8 +40,22 @@ function WeatherApp() {
     }
 
     // this function will handle getting the city inputted and return the data
-    async function getWeatherData() {
+    // our parameter will be city
+    async function getWeatherData(city) {
+        // this url is what we will pas to get data on the city inputted
+        const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}`;
+        // response fetches the url for the specified city inputted
+        const response = await fetch(apiUrl);
 
+        // if the response is not ok, display the error message
+        if(!response.ok) {
+            throw new Error("Could Not Fetch Weather Data");
+            console.log("Could Not Fetch Weather Data");
+        }
+
+        // at the end of this function, return the response in a json object
+        const data = await response.json();
+        return data;
     }
 
     // this function will gather specific data and display it
