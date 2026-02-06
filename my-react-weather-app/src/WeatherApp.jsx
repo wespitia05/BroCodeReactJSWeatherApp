@@ -98,8 +98,31 @@ function WeatherApp() {
     }
 
     // this function will get the specific emoji for the weather id and return it
-    function getWeatherEmoji() {
-
+    function getWeatherEmoji(weatherId) {
+        if (weatherId >= 200 && weatherId < 300) {
+            return "⛈️"; // Thunderstorm
+        }
+        else if (weatherId >= 300 && weatherId < 400) {
+            return "🌦️"; // Drizzle
+        }
+        else if (weatherId >= 500 && weatherId < 600) {
+            return "🌧️"; // Rain
+        }
+        else if (weatherId >= 600 && weatherId < 700) {
+            return "❄️"; // Snow
+        }
+        else if (weatherId >= 700 && weatherId < 800) {
+            return "🌫️"; // Fog / Haze
+        }
+        else if (weatherId === 800) {
+            return "☀️"; // Clear sky
+        }
+        else if (weatherId > 800) {
+            return "☁️"; // Clouds
+        }
+        else {
+            return "❓";
+        }
     }
 
     // this function will determine the direction the wind is blowing based on degree
