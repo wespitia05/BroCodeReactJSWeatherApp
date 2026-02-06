@@ -60,7 +60,41 @@ function WeatherApp() {
 
     // this function will gather specific data and display it
     function displayWeatherInfo() {
+        // clear any previous error
+        setError("");
 
+        // destructure our data
+        const {
+            name,
+            coord: {lat, lon},
+            main: {temp, feels_like, humidity},
+            weather: [{id, description}],
+            wind: {speed, deg}
+        } = data;
+
+        // constants for our helper functions
+        const tempF = kelvToFaren(temp);
+        const feelsLikeF = kelvToFaren(feels_like);
+        const windDirection = getWindDirection(deg);
+        const emoji = getWeatherEmoji(id);
+
+        // store all our values in the set weather state
+        setWeather({
+            city: name,
+            lat, lon,
+            temp: tempF,
+            feelsLike: feelsLikeF,
+            windSpeed: speed,
+            windDirection,
+            humidity,
+            description,
+            emoji
+        });
+    }
+
+    // this function will return the fahrenheit value from kelvin
+    function kelvToFaren(k) {
+        return (((k - 273.15) * 9) / 5 + 32).toFixed(0);
     }
 
     // this function will get the specific emoji for the weather id and return it
