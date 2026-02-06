@@ -59,7 +59,7 @@ function WeatherApp() {
     }
 
     // this function will gather specific data and display it
-    function displayWeatherInfo() {
+    function displayWeatherInfo(data) {
         // clear any previous error
         setError("");
 
@@ -175,15 +175,23 @@ function WeatherApp() {
                 </input>
                 <button type="submit">Get Weather</button>
             </form>
-            <div className="weather-card">
-                <h1 className="cityDisplay">Miami</h1>
-                <p className="locDisplay">25.7743, -80.1937</p>
-                <p className="tempDisplay">90°</p>
-                <p className="realFeelDisplay">Real Feel: 92°</p>
-                <p className="windSpeedDisplay">Wind Speed: ↘ 3.09m/s</p>
-                <p className="humidityDisplay">Humidity: 75%</p>
-                <p className="descDisplay">Clear Skies</p>
-                <p className="weatherEmoji">☀️</p>
+            <div className="weather-card" >
+                {weather && (
+                    <>
+                    <h1 className="cityDisplay">{weather.city}</h1>
+                    <p className="locDisplay">
+                        {weather.lat}, {weather.lon}
+                    </p>
+                    <p className="tempDisplay">{weather.temp}°F</p>
+                    <p className="realFeelDisplay">Real Feel: {weather.feelsLike}°F</p>
+                    <p className="windSpeedDisplay">
+                        Wind Speed: {weather.windDirection} {weather.windSpeed}m/s
+                    </p>
+                    <p className="humidityDisplay">Humidity: {weather.humidity}%</p>
+                    <p className="descDisplay">{weather.description}</p>
+                    <p className="weatherEmoji">{weather.emoji}</p>
+                    </>
+                )}
                 {error && <p className="errorDisplay">{error}</p>}
             </div>
         </div>
